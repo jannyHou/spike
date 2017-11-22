@@ -1,0 +1,39 @@
+{
+  "name": "loopback4-example-swagger",
+  "version": "1.0.0",
+  "description": "Generate model from swagger",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=8"
+  },
+  "scripts": {
+    "tsc": "tsc",
+    "build": "lb-tsc && lb-tslint",
+    "test": "npm run build && mocha \"./dist/test/**/*.test.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/strongloop/loopback4-example-getting-started.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/strongloop/loopback4-example-getting-started/issues"
+  },
+  "homepage": "https://github.com/strongloop/loopback4-example-getting-started#readme",
+  "dependencies": {
+    "@loopback/core": "^4.0.0-alpha.16",
+    "@loopback/repository": "^4.0.0-alpha.10",
+    "@loopback/rest": "^4.0.0-alpha.3",
+    "@types/sinon": "^2.3.6",
+    "oai-ts-core": "^0.2.5",
+    "sinon": "^4.0.1"
+  },
+  "devDependencies": {
+    "@loopback/build": "^4.0.0-alpha.3",
+    "@loopback/testlab": "^4.0.0-alpha.9",
+    "@types/mocha": "^2.2.43",
+    "@types/node": "^8.0.53",
+    "mocha": "^4.0.1",
+    "typescript": "^2.5.2"
+  }
+}
