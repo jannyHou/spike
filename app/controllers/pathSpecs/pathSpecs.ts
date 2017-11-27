@@ -1,3 +1,4 @@
+// Use this file when generating swagger file from bottom-up!!
 const async = require('async');
 const glob = require('glod');
 import * as fs from 'fs';

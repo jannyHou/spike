@@ -35,25 +35,21 @@ Implementation details to be figured out:
 - /controllers
   - swagger-controller.ts
   - /pathSpecs (created from `openapiObj.paths`)
-    - /parameters
-    - /responses
-    - /examples
-    - /requestBody
-    - /headers
-    - /securitySchemas
-    - /links
-    - /callbacks
-  - /swaggerResources (created from `openapiObj.components`)
-    - /schemas (optional: if user don't convert all schemas to models)
-    - /parameters
-    - /responses
-    - /examples
-    - /requestBody
-    - /headers
-    - /securitySchemas
-    - /links
-    - /callbacks
+    - pathSpecs.ts
+    - path1.json
+    - path2.json
+  - /swaggerResources (created from `openapiObj.components` and other resources)
+    - swaggerResources.ts
+    - parameters.json
+    - responses.json
+    - examples.json
+    - requestBody.json
+    - headers.json
+    - securitySchemas.json
+    - links.json
+    - callbacks.json
 - /models
+- generate-apispec-for-server.ts
 - application.ts
 
 ### **controller file**
@@ -69,18 +65,19 @@ export class SwaggerController {
     // resolve the schema by convert the model defined in folder `/models`,
     // or find it in `/swaggerResources/schemas`
     @get('/tests')
-    // the following objects will be retrived from swaggerResources
+    // the following objects will be retrived from `/pathSpecs`
     // or be defined here
-    // - if value follows a `$ref*` pattern, retrieve from `/swaggerResources`
-    // - otherwise copy the whole spec(including nested `$ref`) from `/pathSpecs`
-    @param(paramObject)
-    @response(responseObject)
-    @example(exampleObject)
-    @header(headerObject)
-    @security(securityObject)
-    @link(linkObject)
-    @callback(callbackObject)
-    // parameters must be resolved as an object without `$ref`
+    // - if value not provided, retrieve from `/pathSpecs`
+    // - otherwise use the provided value
+    @param()
+    @response()
+    @example()
+    @header()
+    @security()
+    @link()
+    @callback()
+    // parameters must be fully resolved without `$ref`,
+    // need a type conversion system mapping openapi schema type to ts type
     async findAll(param1, param2) {
       // enjoy writing your implementation here
     }
@@ -103,7 +100,7 @@ LB3 model doesn't have these concepts, let's make them happen in LB4.
 *application.ts*
 
 ```js
-class MyApp extends Context{
+class MyApp extends Application {
     // create a `new restServer(config)`?
 }
 ```
@@ -146,7 +143,7 @@ NOT COMPLETED YET
 |                 |                     |             |                       |
 | servers         | ?                   | N/A         | servers               |
 | host            | restServer's config | host        | servers[i].url        |
-| basePath        | ?                   | basePath    | servers[i].url        |
+| basePath        | restServer's config | basePath    | servers[i].url        |
 | schemas         | restServer's config | schemas     | servers[i].url        |
 |                 |                     |             |                       |
 | security        | ?                   | security    | security              |
@@ -158,20 +155,20 @@ KEY PRINCIPLES:
 - In the top-down convertion, ONLY put same spec in one place to make sure there is no conflict when building it from bottom-up
 - The original reusable swagger spec element should be still reusable
 
-### Domain represent class we have 
+### Domain representation we have 
 
 Example: Model
 
 Two options:
 
 - Convert everything
-- Convert compatible ones and leave the uncompatible ones
+- Convert compatible ones and leave the incompatible ones
 
 The choice should be case by case, now we only have `Model`, or say `RestModel`,
 and I suggest we build it to be fully compatible with swagger schema,
 e.g. anyOf, oneOf, allOf
 
-### Domain represent class we don't have
+### Domain representation we don't have
 
 Example: Response
 
@@ -182,10 +179,13 @@ Give people the flexibility to plugin extensions.
 Example: function parameters
 
 Let user solve the conflict if any. This is restricted by the language nature: 
-define a function as it is, it's not user-friendly to build a function at runtime.
+we have define a function as it is, it's not user-friendly to build a function at runtime.
 
 ## TBD
 
 - unify swagger2 and openapi3
 - design a Model fully compatible with swagger schema
+- need a type conversion system mapping openapi schema type to ts type
 - refactor the current rest server
+  - multiple restServer support
+- we need a domain representation for parameter to make it fully reusable, if we want, instead of only using controller function decorator 
