@@ -140,7 +140,7 @@ Target on `openapiObj.components` and some other resources like `externalDocs`
 - Convert to LB model
   - option1: Let user choose which ones to convert
   - option2: Convert all of them (preffer this)
-- (Optional) split into multiple controllers by `tag`
+- Split into multiple controllers by `tag`
 - Create artifacts in parallel:
   - `/src/controllers/swaggerResources`
   - `/src/models`
