@@ -7,7 +7,7 @@ async function someFunctionNotExistYet(name: string, resources:any){
 }
 
 export async function getAPISpecPerServer(name: string) {
-  let resources = await getSwaggerResources();
+  let resources = getSwaggerResources();
   let schemas = await getSwaggerSchemas();
   // see doc in http://loopback.io/doc/en/lb4/Defining-and-validating-the-API.html#putting-together-the-final-api-specification
   // previously we manually generate the `apispec`, put them together,

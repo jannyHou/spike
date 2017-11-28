@@ -1,4 +1,4 @@
-{
+export const originalResponses = {
     "default": {
         "description": "unexpected error",
          "content": {

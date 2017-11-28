@@ -5,25 +5,21 @@
 // most of the code are duplicate of `pathSpecs.ts`,
 // please extract them into a lib when implementing the template.
 
-import {promisify} from 'util';
-const glob = require('glob');
-const { forEach } = require('p-iteration');
-const fs = require('fs-promise');
+// We can build sub cli for swagger cmd, like `lb swagger --add parameters`
+// which adds a `/parameter` template folder under `/swaggerResources`
+// while this file has to be entirely regenerated everytime
 
-export async function getSwaggerResources() {
-  const globAsync = promisify(glob);
-  let files:[string] = await globAsync('./**.json',{});
-  let swaggerResources:any = {};
+import * as OA3_TYPES from 'openapi3-ts';
+import { swaggerResponses } from './responses/responses';
 
-  async function readFiles () {
-    await forEach(files, async (file:string) => {
-      const contents = await fs.readFile(file, 'utf8');
-      let resourceName = file.replace('./', '');
-      resourceName = resourceName.replace('.json', '');
-      swaggerResources[resourceName] = JSON.parse(contents);
-    });
-  }
-  
-  await readFiles();
-  console.log(swaggerResources);
+export interface swaggerResourcesType {
+  swaggerResponses?: OA3_TYPES.ResponsesObject
+  // !important etc...
 }
+
+export function getSwaggerResources() {
+  let swaggerResources: swaggerResourcesType = {};
+  swaggerResources.swaggerResponses = swaggerResponses;
+  return swaggerResources;
+} 
+
