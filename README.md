@@ -7,18 +7,67 @@ https://github.com/metadevpro/openapi3-ts/blob/master/src/model/OpenApi.ts
 
 # TOP-DOWN
 
-## Parse a swagger2/3 file
+## Strategy1
 
-Parse a swagger2/3 file into spec models, 
-then create a swagger2/3 object for building LB app.
-A very helpful module: https://github.com/Apicurio/oai-ts-core.
+Define a class for each openapi element, define each property of the element as a class property.
 
-Models for spec: https://github.com/Apicurio/oai-ts-core/tree/master/src/models
-Read the swagger file, build each spec as an instance of the spec model(class).
+example: https://github.com/Apicurio/oai-ts-core/blob/master/src/models/common/info.model.ts
 
-*Could not use it out of box, solve the build failure OR build our own one*
+```js
+export abstract class OasInfo extends OasExtensibleNode {
+    public title: string;
+    public description: string;
+    public termsOfService: string;
+    public contact: OasContact;
+    public license: OasLicense;
+    public version: string;
+    public accept(visitor: IOasNodeVisitor): void {
+        visitor.visitInfo(this);
+    }
+    public abstract createContact(): OasContact;
+    public abstract createLicense(): OasLicense;
+}
+```
+The idea comes from module https://github.com/Apicurio/oai-ts-core
 
-Actually I am not sure why we need it...
+It is an awesome module but IMO this design doesn't benefit our artifacts generation. 
+I briefly describe how it works and the reason why I don't use its library here 
+in case I overlook its value.
+
+This module can parse an openapi json file as an instance of an openapi class, 
+let's name the instance as `oasdocument`, each property of `oasdocument` is 
+an instance of an openapi element class, e.g. `oasdocument.info` is an instance of 
+class `Oas3Info`, and the module also defines model classes for all sub elements.
+
+It's helpful if your domain is built following the openapi spec's structure, 
+and most of the representations can extend openapi element classes, or you need 
+an in-memory object of the swagger file. IMO LB4 is neither of them.
+
+Creating a class instance is complicated with this design, since we need the code 
+that assigns value for each property, for example:
+
+```ts
+// This would be the template file
+// Assume we aready read the info obj from an openapi json file,
+// and dump its property values into the template:
+let info = new Oas3Info();
+info.title = <%title>;
+info.description = <%description>;
+// etc...
+// finally you get the model instance `info`
+```
+
+For those swagger resources, we mostly just keep the metadata from the swagger file 
+as they are, and make them easily readable when generating a new swagger file from bottom-up.
+
+We want users to be able to edit/add/delete those specs in a very straight forward way,
+for example manipulating them as a json object, BUT having the type safety check when
+they typing, so we come up with the second strategy [link...]()
+
+This module is useful as a reference when unifying swagger2 and openapi3 specs, 
+it defines common models under `/common` and OAS2, OAS3 models extend them, see: https://github.com/Apicurio/oai-ts-core/tree/master/src/models
+
+## Strategy2
 
 ## Build template 
 
