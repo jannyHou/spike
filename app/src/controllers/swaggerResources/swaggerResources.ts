@@ -1,25 +1,26 @@
 // This file is generated as template when parsing a swagger file from top-down,
 // and is used when generating a swagger file from bottom-up.
-// Function `getPathSpecs` is used in `../swagger-controller.ts`.
 
-// most of the code are duplicate of `pathSpecs.ts`,
-// please extract them into a lib when implementing the template.
+// We can build sub cli for swagger cmd, like `lb swagger --add parameters`,
+// which adds a `/parameter` template folder under `/swaggerResources`,
+// and imports parameters in this file, adds it to `swaggerResources`,
+// see the two lines marked as (template update)
+// I think this file has to be entirely regenerated everytime
 
-// We can build sub cli for swagger cmd, like `lb swagger --add parameters`
-// which adds a `/parameter` template folder under `/swaggerResources`
-// while this file has to be entirely regenerated everytime
-
-import * as OA3_TYPES from 'openapi3-ts';
+import { 
+  swaggerResourcesType, 
+  getSwaggerResources, 
+  addSwaggerResource 
+} from './lib.not.in.template';
 import { swaggerResponses } from './responses/responses';
+// (template update) import { swaggerParameters } from './parameters/parameters';
 
-export interface swaggerResourcesType {
-  swaggerResponses?: OA3_TYPES.ResponsesObject
-  // !important etc...
-}
+export let swaggerResources = getSwaggerResources();
+addSwaggerResource('swaggerResponses', swaggerResponses.returnResponse());
+// (template update) addSwaggerResource('swaggerParameters', swaggerParameters.returnParameter());
 
-export function getSwaggerResources() {
-  let swaggerResources: swaggerResourcesType = {};
-  swaggerResources.swaggerResponses = swaggerResponses;
-  return swaggerResources;
-} 
+// now if you retrieve `swaggerResources` from other file, 
+// the new resource objects are added
+
+
 
