@@ -1,8 +1,8 @@
-import { findPetsSpec, addPetSpec } from './pathSpecs/pathSpecs';
+import * as PATH_SPECS from './pathSpecs/pathSpecs';
 import { get, post } from '@loopback/rest';
 
 export class SwaggerController {
-    @get('/pets', findPetsSpec)
+    @get('/pets', PATH_SPECS.findPetsSpec)
     // Had a chat with Raymond, two flavours for decorators we can choose:
     // - option 1: provide full spec like the code above
     // - option 2: provide composed decorators seperately
@@ -21,7 +21,7 @@ export class SwaggerController {
       // enjoy writing your `findPets` implementation here
     }
 
-    @post('/pets', addPetSpec)
+    @post('/pets', PATH_SPECS.addPetSpec)
     // @server()
     async addPet() {
       // enjoy writing your `addPets` implementation here
