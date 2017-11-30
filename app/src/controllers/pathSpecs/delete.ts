@@ -1,4 +1,4 @@
-{
+export const deleteSpec = {
     "description": "deletes a single pet based on the ID supplied",
     "operationId": "deletePet",
     "parameters": [

@@ -1,3 +1,4 @@
+export const addPetSpec = 
 {
     "description": "Creates a new pet in the store.  Duplicates are allowed",
     "responses": {
