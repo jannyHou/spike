@@ -27,7 +27,7 @@ I am going through the OAS elements in that picture and elaborate
 
 My spike also includes creating a new module for OAS, it contains some existing functionalities from rest server module, like generating `pathSpecs` for a controller class, and some features we don't have yet, like generating `schemaSpecs` for a model class.
 
-I put the design of OAS module in file [OAS-module.md](https://github.com/jannyHou/spike/blob/master/OAS.md), please read it first to understand how I use the module below. If some parts are too complicated or based on wrong assumptions(I don't have enough knowledge of our rest module so some understanding could be wrong), please at least take a look of the [functionality section](https://github.com/jannyHou/spike/blob/master/OAS.md#functionalities)
+I put the design of OAS module in file [OAS.md](https://github.com/jannyHou/spike/blob/reviewBranch/OAS.md), please read it first to understand how I use the module below. If some parts are too complicated or based on wrong assumptions(I don't have enough knowledge of our rest module so some understanding could be wrong), please at least take a look of the [functionality section](https://github.com/jannyHou/spike/blob/reviewBranch/OAS.md#functionalities)
 
 ## version
 
@@ -209,7 +209,7 @@ export class MyMicroservice extends Application {
     serverPublic.bind("rest.oas").to(oas);
     // here we bind controllers per server instance
     // rest server component will call some functions from `oas` to get the `pathSpces`,
-    // details please check [OAS-module.md](master..link..tbd)
+    // details please check [OAS.md](https://github.com/jannyHou/spike/blob/reviewBranch/OAS.md)
     serverPublic.bind("rest.controllers").to([OASControllerDefault]);
 
     serverPrivate.bind("rest.url").to(url2_parsed_from_openapi);
@@ -286,11 +286,11 @@ export class Responses {
 And take the same approach to create a class for `OASResources`,
 which can add new resource and return existing resources
 
-I temporarily write the lib code in https://github.com/jannyHou/spike/blob/master/app/src/controllers/OASResources/lib.not.in.template.tsts for the classes & types above, but it is not a part of the template.
+I temporarily write the lib code in https://github.com/jannyHou/spike/blob/reviewBranch/app/src/controllers/OASResources/lib.not.in.template.tsts for the classes & types above, but it is not a part of the template.
 
 The template folder is generated like this:
 
-https://github.com/jannyHou/spike/tree/master/app/src/controllers/OASResources
+https://github.com/jannyHou/spike/tree/reviewBranch/app/src/controllers/OASResources
 
 Cons:
 
