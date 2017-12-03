@@ -1,5 +1,5 @@
 // lib file for responses object, 
-// should move to `libModule/lib/swaggerResources/response.lib.ts`
+// should move to `OASModule/someLibFolder/OASResources/response.lib.ts`
 import * as OA3_TYPES from 'openapi3-ts';
 // export the types here is important
 // otherwise you see this error: 
@@ -26,20 +26,29 @@ export class Responses {
 }
 
 // the code below should be in a seperate lib file
-// lib file for swagger resources,
-// should move to `libModule/lib/swaggerResources/swaggerResources.lib.ts`
-export interface swaggerResourcesType {
+
+// lib file for OAS resources,
+// should move to `OASModule/someLibFolder/OASResources/OASResources.lib.ts`
+export interface OASResourcesType {
     [key: string]: any
-    swaggerResponses?: OA3_TYPES.ResponsesObject
-    // this interface is not completed yet, more resource items to be added
+    OASResponses?: OA3_TYPES.ResponsesObject
+    // !this interface is not completed yet, more resource items to be added
 }
 
-let swaggerResources: swaggerResourcesType = {};
+export class OASResources {
+  OASResources?: OASResourcesType
+  
+  constructor(OASResources?: OASResourcesType) {
+      this.OASResources = OASResources || {};
+  }  
 
-export function getSwaggerResources():swaggerResourcesType {
-    return swaggerResources;
-}  
+  addResource(key: string, value: any) {
+    this.OASResources = this.OASResources || {};
+    this.OASResources[key] = value;
+  }
 
-export function addSwaggerResource(key: string, value: any) {
-  swaggerResources[key] = value;
+  returnResponse(): OASResourcesType {
+      return this.OASResources || {};
+  }
+
 }

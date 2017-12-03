@@ -8,16 +8,14 @@
 // I think this file has to be entirely regenerated everytime
 
 import { 
-  swaggerResourcesType, 
-  getSwaggerResources, 
-  addSwaggerResource 
+  OASResources
 } from './lib.not.in.template';
-import { swaggerResponses } from './responses/responses';
-// (template update) import { swaggerParameters } from './parameters/parameters';
+import { OASResponses } from './responses/responses';
+// (template update) import { OASParameters } from './parameters/parameters';
 
-export let swaggerResources = getSwaggerResources();
-addSwaggerResource('swaggerResponses', swaggerResponses.returnResponse());
-// (template update) addSwaggerResource('swaggerParameters', swaggerParameters.returnParameter());
+export let resources = new OASResources();
+resources.addResource('swaggerResponses', OASResponses.returnResponse());
+// (template update) resources.addResource('OASParameters', OASParameters.returnParameter());
 
 // now if you retrieve `swaggerResources` from other file, 
 // the new resource objects are added
