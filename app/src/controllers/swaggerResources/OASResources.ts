@@ -14,10 +14,10 @@ import { OASResponses } from './responses/responses';
 // (template update) import { OASParameters } from './parameters/parameters';
 
 export let resources = new OASResources();
-resources.addResource('swaggerResponses', OASResponses.returnResponse());
+resources.addResource('OASResponses', OASResponses.returnResponse());
 // (template update) resources.addResource('OASParameters', OASParameters.returnParameter());
 
-// now if you retrieve `swaggerResources` from other file, 
+// now if you retrieve `OASResources` from other file, 
 // the new resource objects are added
 
 

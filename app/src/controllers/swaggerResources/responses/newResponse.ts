@@ -1,6 +1,6 @@
 export const newResponse = {
-    "hi": {
-        "description": "unexpected error",
+    "201": {
+        "description": "created",
          "content": {
             "application/json": {
                 "schema": {

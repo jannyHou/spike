@@ -7,4 +7,4 @@ export let OASResponses = new Responses(originalResponses);
 // - create a new .ts file that export your new response obj as a json object
 // - import it in this file and call `addResponse()` to add it like the 2 lines below
 import { newResponse } from './newResponse';
-OASResponses.addResponse('hi', newResponse.hi);
+OASResponses.addResponse('201', newResponse["201"]);
