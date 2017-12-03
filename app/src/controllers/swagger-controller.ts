@@ -1,15 +1,22 @@
+// operation decorators decorate model properties to fit into the OAS schema
+// OAS module also provides the type generator that reads metadata of a model
+// and generate the type used controller
 import * as PATH_SPECS from './pathSpecs/pathSpecs';
-import { get, post } from '@loopback/rest';
+import { NewPet } from '../models/new-pet';
+import { get, post, schemaTypeGen } from '@loopback/OAS';
 
-export class SwaggerController {
-    @get('/pets', PATH_SPECS.findPetsSpec)
+// here `NewPet` is a class, `typeGen` takes in an array of model 
+// classes(the targets for metadata retrieving), then returns the
+// corresponding schema types
+const SCHEMA_TYPES = schemaTypeGen([NewPet]);
+
+export class OASControllerDefault {
     // Had a chat with Raymond, two flavours for decorators we can choose:
     // - option 1: provide full spec like the code above
     // - option 2: provide composed decorators seperately
     // option 1 is definitely easier when doing top-down parsing.
 
-    // @server() multiple server support, 
-    // restServer expert can share more details of it.
+    // @server() multiple server support.
 
     // For parameters parsing:
     // 1. parameters must be fully resolved without `$ref`,
@@ -17,15 +24,16 @@ export class SwaggerController {
     // 2. function name is the value of `x-operation-name`
     // 3. we can dump some implementation details into function
     // if `x-implementation-template` is specified
-    async findPets(tags:[string], limit:number) {
-      // enjoy writing your `findPets` implementation here
+
+    @post('/pets', PATH_SPECS.addPet)
+    async addPet(newPet: SCHEMA_TYPES.NewPet) {
+        <%x-implementation-template%>
     }
 
-    @post('/pets', PATH_SPECS.addPetSpec)
-    // @server()
-    async addPet() {
-      // enjoy writing your `addPets` implementation here
+    @get('/pets', PATH_SPECS.findPets)
+    async findPets() {
+        <%x-implementation-template%>
     }
 
-    // ... other paths
+    // other paths...
 }

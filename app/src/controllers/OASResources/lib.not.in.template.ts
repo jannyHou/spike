@@ -47,7 +47,7 @@ export class OASResources {
     this.OASResources[key] = value;
   }
 
-  returnResponse(): OASResourcesType {
+  returnResources(): OASResourcesType {
       return this.OASResources || {};
   }
 
