@@ -27,7 +27,7 @@ I am going through the OAS elements in that picture and elaborate
 
 My spike also includes creating a new module for OAS, it contains some existing functionalities from rest server module, like generating `pathSpecs` for a controller class, and some features we don't have yet, like generating `schemaSpecs` for a model class.
 
-I put the design of OAS module in file [OAS-module.md](master..link..tbd), please read it first to understand how I use the module below. If some parts are too complicated or based on wrong assumptions(I don't have enough knowledge of our rest module so some understanding could be wrong), please at least take a look of the [functionality section](master...link...tbd)
+I put the design of OAS module in file [OAS-module.md](https://github.com/jannyHou/spike/blob/master/OAS.md), please read it first to understand how I use the module below. If some parts are too complicated or based on wrong assumptions(I don't have enough knowledge of our rest module so some understanding could be wrong), please at least take a look of the [functionality section](https://github.com/jannyHou/spike/blob/master/OAS.md#functionalities)
 
 ## version
 
@@ -95,7 +95,7 @@ export class MyMicroservice extends Application {
   }
 }
 ```
-Now the server only provides info of `OAS.servers`, for controllers, I will cover it in [the section paths](this..file..link)
+Now the server only provides info of `OAS.servers`, for controllers, I will cover it in [the paths section](#paths)
 
 
 ## paths
@@ -228,7 +228,7 @@ By top-down parsing I tend to bind controllers to `oas`...
 
 ## resources
 
-OAS resources are the ones marked with yellow border in [mapping.png](https://github.com/jannyHou/spike/blob/openapi/mapping.png).
+OAS resources are the ones marked with yellow border in [mapping.png](https://github.com/jannyHou/spike/blob/master/mapping.png).
 
 OAS resources are not universal concepts like model and controller in LB4, so we may not want to cast them into complicated reprentations, I have 2 proposals:
 
@@ -286,11 +286,11 @@ export class Responses {
 And take the same approach to create a class for `OASResources`,
 which can add new resource and return existing resources
 
-I temporarily write the lib code in https://github.com/jannyHou/spike/blob/OASResources/class/app/src/controllers/OASResources/lib.not.in.template.ts for the classes & types above, but it is not a part of the template.
+I temporarily write the lib code in https://github.com/jannyHou/spike/blob/master/app/src/controllers/OASResources/lib.not.in.template.tsts for the classes & types above, but it is not a part of the template.
 
 The template folder is generated like this:
 
-https://github.com/jannyHou/spike/tree/OASResources/class/app/src/controllers/OASResources
+https://github.com/jannyHou/spike/tree/master/app/src/controllers/OASResources
 
 Cons:
 
