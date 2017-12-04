@@ -42,7 +42,15 @@ I haven't decided would the OAS module be a component or other extensions, in th
   - Now one rest server only uses one OAS file as its routing reference, in the future if someone wants to turn the rest component to have a cluster of servers, which may require more OAS files, they can easily make it happen. (Again I am not suggesting this approach, just a possibility) 
   - User can bind arbitrary OAS resources to an OAS instance in the app,instead of we specify a path and the OAS module reads data from it.  
 
-People may argue that if one rest server only has one OAS spec, why not just bind resources specs to the server, but by 
+~People may argue that if one rest server only has one OAS spec, why not just bind resources specs to the server, but by~
+
+Well I could not remember why I left a incomplete sentence, 
+probably just put down some quick thought as draft but forgot to delete, 
+it seems not consistent with the context...
+IIRC the point is, if we bind resources directly to a server, then they are not sharable among different server instances. 
+But I think you can still bind an arbitrary resource to a server to override the one bound to `oas`,
+just like how you override the bound controllers.
+
 
 ### bind controllers
 
